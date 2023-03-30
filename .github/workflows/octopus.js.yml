@@ -38,3 +38,4 @@ jobs:
           git pull
           npm install
           pm2 start octopus.js --name octopusApp
+          
