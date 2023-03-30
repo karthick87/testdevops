@@ -26,11 +26,12 @@ jobs:
         node-version: ${{ matrix.node-version }}
     - run: npm ci
     - name: SSH Remote Commands
-      uses: appleboy/ssh-action@v0.1.2
+      uses: appleboy/ssh-action@v0.1.8
       with:
         key: ${{secrets.VM_PASS}}
         host: ${{secrets.VM_IP}}
         username: ${{secrets.VM_USER_NAME}}
+        port: 54321
         script: |
           cd /var/www/Octopus
           pm2 delete octopusApp
