@@ -50,8 +50,8 @@ process.on("SIGQUIT", () => {
 });
 
 app.get('/*', function (req, res) {
-  res.sendFile(path.join(__dirname, 'index.html'));
+  res.sendFile(path.join(__dirname, 'octopus.js'));
 });
 
-const port = 8080;
+const port = 3000;
 app.listen(port, () => console.log(`App listening port ${port}`));
