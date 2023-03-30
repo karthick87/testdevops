@@ -28,9 +28,9 @@ jobs:
     - name: SSH Remote Commands
       uses: appleboy/ssh-action@v0.1.2
       with:
-        key: ${{VM_PASS}}
-        host: ${{VM_IP}}
-        username: ${{VM_USER_NAME}}
+        key: ${{secrets.VM_PASS}}
+        host: ${{secrets.VM_IP}}
+        username: ${{secrets.VM_USER_NAME}}
         script: |
           cd /var/www/Octopus
           pm2 delete octopusApp
