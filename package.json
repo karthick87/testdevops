@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/Tarzan0607/octopus/issues"
   },
-  "homepage": "https://github.com/Tarzan0607/octopus#readme"
+  "homepage": "https://github.com/Tarzan0607/octopus#readme",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
 }

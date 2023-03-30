@@ -1,4 +1,12 @@
 const http = require("http");
+const express = require('express');
+const path = require('path');
+
+const app = express();
+
+app.get('/test', (req, res) => {
+  res.send('Action runner');
+});
 
 // Configuration
 const config = {
@@ -40,3 +48,10 @@ process.on("SIGQUIT", () => {
   console.log("SIGQUIT received, closing HTTP server.");
   server.close();
 });
+
+app.get('/*', function (req, res) {
+  res.sendFile(path.join(__dirname, 'index.html'));
+});
+
+const port = 8080;
+app.listen(port, () => console.log(`App listening port ${port}`));
