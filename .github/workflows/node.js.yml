@@ -25,16 +25,28 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
     - run: npm ci
-    - name: SSH Remote Commands
-      uses: appleboy/ssh-action@v0.1.8
-      with:
-        key: ${{secrets.VM_PASS}}
-        host: ${{secrets.VM_IP}}
-        username: ${{secrets.VM_USER_NAME}}
-        port: 54321
-        script: |
-          cd /var/www/Octopus
-          pm2 stop octopusApp
-          git pull
-          npm install
-          pm2 start octopus.js --name octopusApp
+    - name: Configure SSH Settings
+      run: |
+        mkdir -p ~/.ssh/
+        echo "$SSH_KEY" > ~/.ssh/testing.key
+        chmod 600 ~/.ssh/testing.key
+        cat >> ~/.ssh/config <<END
+        Host test-node
+          HostName $SSH_HOST
+          User $SSH_USER
+          IdentityFile ~/.ssh/testing.key
+          StrictHostkeyChecking no
+        END
+#     - name: SSH Remote Commands
+#       uses: appleboy/ssh-action@v0.1.8
+#       with:
+#         key: ${{secrets.VM_PASS}}
+#         host: ${{secrets.VM_IP}}
+#         username: ${{secrets.VM_USER_NAME}}
+#         port: 54321
+#         script: |
+#           cd /var/www/Octopus
+#           pm2 stop octopusApp
+#           git pull
+#           npm install
+#           pm2 start octopus.js --name octopusApp
