@@ -7,7 +7,7 @@ on:
     branches: [ master ]
 
 jobs:
-  Testing_Build_Dev:
+  Development_Build:
     runs-on: ubuntu-latest
 
     strategy:
@@ -20,9 +20,9 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
     - run: npm ci
-  Testing-Deployment_Dev:
+  Development_Deployment:
     runs-on: ubuntu-latest
-    needs: Testing_Build_Dev
+    needs: Development_Build
     env:
       SSH_USER: ${{ secrets.SSH_USER }}
       SSH_HOST: ${{ secrets.SSH_HOST }}
