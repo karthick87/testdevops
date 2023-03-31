@@ -1,6 +1,3 @@
-# This workflow will do a clean install of node dependencies, build the source code and run tests across different versions of node
-# For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
-
 name: Node.js CI
 
 on:
@@ -15,8 +12,7 @@ jobs:
 
     strategy:
       matrix:
-      node-version: [18.x]
-
+        node-version: [18.x]        
     steps:
     - uses: actions/checkout@v2
     - name: Use Node.js ${{ matrix.node-version }}
@@ -24,27 +20,31 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
     - run: npm ci
-    - name: Configure SSH Settings
-      run: |
-        mkdir -p ~/.ssh/
-        echo "$SSH_KEY" > ~/.ssh/testing.key
-        chmod 600 ~/.ssh/testing.key
-        cat >> ~/.ssh/config <<END
-        Host test-node
-          HostName $SSH_HOST
-          User $SSH_USER
-          IdentityFile ~/.ssh/testing.key
-          StrictHostkeyChecking no
-        END
   Testing-Deployment_Dev:
     runs-on: ubuntu-latest
+    needs: Testing_Build_Dev
     env:
-      SSH_USER:
-      SSH_HOST:
-      SSH_KEY:
-    environment:
-      name: testing-dep-dev
-  steps:
+      SSH_USER: ${{ secrets.SSH_USER }}
+      SSH_HOST: ${{ secrets.SSH_HOST }}
+      SSH_KEY: ${{ secrets.SSH_KEY }}      
+    steps:
+      - name: Configure SSH Settings
+        run: |
+          mkdir -p ~/.ssh/
+          echo "$SSH_KEY" > ~/.ssh/testing.key
+          chmod 600 ~/.ssh/testing.key
+          cat >> ~/.ssh/config <<END
+          Host test-node
+            HostName $SSH_HOST
+            User $SSH_USER
+            IdentityFile ~/.ssh/testing.key
+            StrictHostkeyChecking no
+          END
+      - name: Deployment
+        run: |
+          ssh root /bin/bash << EOF
+            ip a
+          EOF
 #     - name: SSH Remote Commands
 #       uses: appleboy/ssh-action@v0.1.8
 #       with:
