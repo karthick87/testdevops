@@ -34,7 +34,7 @@ jobs:
         port: 54321
         script: |
           cd /var/www/Octopus
-          sudo pm2 reload all 
+          git pm2 reload all 
           git pull
-          sudo npm install
-          sudo pm2 start octopus.js --name octopusApp
+          git npm install
+          git pm2 start octopus.js --name octopusApp
