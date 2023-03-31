@@ -44,7 +44,6 @@ jobs:
       - name: Deployment
         run: |
           ssh test-node /bin/bash <<EOF
-            cd /var/www/Octopus
             export PATH=/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games
             pm2 stop octopusApp
             git pull
