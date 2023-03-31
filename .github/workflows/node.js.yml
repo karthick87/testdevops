@@ -42,4 +42,6 @@ jobs:
           END
       - name: Deployment
         run: |
-          echo "Hello"
+          ssh test-node /bin/bash <<EOF
+            ip a
+          EOF
