@@ -10,13 +10,12 @@ on:
     branches: [ master ]
 
 jobs:
-  build:
-
+  Testing_Build_Dev:
     runs-on: ubuntu-latest
 
     strategy:
       matrix:
-        node-version: [18.x]
+      node-version: [18.x]
 
     steps:
     - uses: actions/checkout@v2
@@ -37,6 +36,15 @@ jobs:
           IdentityFile ~/.ssh/testing.key
           StrictHostkeyChecking no
         END
+  Testing-Deployment_Dev:
+    runs-on: ubuntu-latest
+    env:
+      SSH_USER:
+      SSH_HOST:
+      SSH_KEY:
+    environment:
+      name: testing-dep-dev
+  steps:
 #     - name: SSH Remote Commands
 #       uses: appleboy/ssh-action@v0.1.8
 #       with:
