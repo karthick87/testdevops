@@ -45,16 +45,3 @@ jobs:
           ssh root /bin/bash << EOF
             ip a
           EOF
-#     - name: SSH Remote Commands
-#       uses: appleboy/ssh-action@v0.1.8
-#       with:
-#         key: ${{secrets.VM_PASS}}
-#         host: ${{secrets.VM_IP}}
-#         username: ${{secrets.VM_USER_NAME}}
-#         port: 54321
-#         script: |
-#           cd /var/www/Octopus
-#           pm2 stop octopusApp
-#           git pull
-#           npm install
-#           pm2 start octopus.js --name octopusApp
