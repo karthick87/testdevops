@@ -34,7 +34,7 @@ jobs:
         port: 54321
         script: |
           cd /var/www/Octopus
-          git pm2 reload all 
+          pm2 stop "octopusApp" 
           git pull
           git npm install
           git pm2 start octopus.js --name octopusApp
