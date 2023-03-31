@@ -42,6 +42,4 @@ jobs:
           END
       - name: Deployment
         run: |
-          ssh root /bin/bash << EOF
-            ip a
-          EOF
+          echo "Hello"
