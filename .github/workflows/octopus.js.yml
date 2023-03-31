@@ -33,8 +33,8 @@ jobs:
         username: ${{secrets.VM_USER_NAME}}
         port: 54321
         script: |
-          cd /var/www/Octopus
           pm2 delete octopusApp
+          cd /var/www/Octopus
           git pull
           npm install
           pm2 start octopus.js --name octopusApp
