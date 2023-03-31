@@ -37,12 +37,17 @@ jobs:
           Host test-node
             HostName $SSH_HOST
             User $SSH_USER
-            Port 22
+            Port 54321
             IdentityFile ~/.ssh/testing.key
             StrictHostkeyChecking no
           END
       - name: Deployment
         run: |
           ssh test-node /bin/bash <<EOF
-            ip a
+            cd /var/www/Octopus
+            pm2 stop octopusApp
+            git pull
+            pm2 stop octopusApp 
+            npm install
+            pm2 start octopus.js --name octopusApp
           EOF
