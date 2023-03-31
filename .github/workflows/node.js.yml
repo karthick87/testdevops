@@ -37,6 +37,7 @@ jobs:
           Host test-node
             HostName $SSH_HOST
             User $SSH_USER
+            Port 22
             IdentityFile ~/.ssh/testing.key
             StrictHostkeyChecking no
           END
